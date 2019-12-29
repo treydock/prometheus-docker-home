@@ -1,0 +1,7 @@
+groups:
+  - name: fs
+    rules:
+    - record: node_filesystem_free_percent
+      expr: node_filesystem_free_bytes{device != "tmpfs"} / node_filesystem_size_bytes{device != "tmpfs"} * 100
+    - record: node_filesystem_free_gb
+      expr: node_filesystem_free_bytes{device != "tmpfs"} / 1024 / 1024 / 1024
