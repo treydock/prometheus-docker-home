@@ -10,7 +10,7 @@ global:
 
 # Load and evaluate rules in this file every 'evaluation_interval' seconds.
 rule_files:
-#  - 'alert.rules'
+  - 'alert.rules'
   # - "first.rules"
   # - "second.rules"
 
@@ -35,4 +35,4 @@ scrape_configs:
     # Override the global default and scrape targets from this job every 5 seconds.
     scrape_interval: 5s
     static_configs:
-      - targets: ['172.30.0.1:9100']
+      - targets: ['192.168.68.127:9100']

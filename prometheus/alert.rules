@@ -1,0 +1,28 @@
+groups:
+- name: home
+  rules:
+  # Alert for any instance that is unreachable for >2 minutes.
+  - alert: service_down
+    expr: up == 0
+    for: 2m
+    labels:
+      severity: page
+    annotations:
+      summary: "Instance {{ $labels.instance }} down"
+      description: "{{ $labels.instance }} of job {{ $labels.job }} has been down for more than 2 minutes."
+  - alert: high_load
+    expr: node_load1 > 0.5
+    for: 2m
+    labels:
+      severity: warning
+    annotations:
+      summary: "Instance {{ $labels.instance }} under high load"
+      description: "{{ $labels.instance }} of job {{ $labels.job }} is under high load."
+  - alert: Low free space
+    expr: (node_filesystem_free_bytes{device != "tmpfs"} / node_filesystem_size_bytes{device != "tmpfs"} * 100) < 15
+    for: 1m
+    labels:
+      severity: warning
+    annotations:
+      title: Low free space on {{ $labels.instance }}
+      description: On {{ $labels.instance }} device {{ $labels.device }} mounted on {{ $labels.mountpoint }} has low free space of {{ $value }}%
