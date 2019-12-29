@@ -2,7 +2,7 @@ groups:
 - name: home
   rules:
   # Alert for any instance that is unreachable for >2 minutes.
-  - alert: service_down
+  - alert: node_down
     expr: up == 0
     for: 2m
     labels:
@@ -11,7 +11,7 @@ groups:
       summary: "Instance {{ $labels.instance }} down"
       description: "{{ $labels.instance }} of job {{ $labels.job }} has been down for more than 2 minutes."
   - alert: high_load
-    expr: node_load1 > 0.5
+    expr: node_load1 > 2
     for: 2m
     labels:
       severity: warning
@@ -48,7 +48,7 @@ groups:
       description: The TCP port {{ $labels.instance }} is down
 - name: http
   rules:
-  - alert: HTTP site is down
+  - alert: http_down
     expr: probe_success{job="http-probe"} != 1
     for: 5m
     labels:
@@ -58,7 +58,7 @@ groups:
       description: The HTTP site {{ $labels.instance }} is down
   - alert: SSLCertExpiringSoon
     expr: probe_ssl_cert_expiry_days < 14
-    for: 10m
+    for: 5m
     labels:
       severity: warning
     annotations:

@@ -11,3 +11,14 @@ receivers:
     email_configs:
       - to: pi@localhost
         send_resolved: true
+inhibit_rules:
+  - target_match:
+      alertname: http_down
+    source_match:
+      alertname: node_down
+    equal: ['host']
+  - target_match:
+      alertname: SSLCertExpiringSoon
+    source_match:
+      alertname: http_down
+    equal: ['instance']
