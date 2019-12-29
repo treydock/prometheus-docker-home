@@ -1,0 +1,13 @@
+global:
+  smtp_from: prometheus@localhost
+  smtp_smarthost: 192.168.68.127:25
+  smtp_require_tls: false
+
+route:
+  receiver: email
+
+receivers:
+  - name: email
+    email_configs:
+      - to: pi@localhost
+        send_resolved: true
