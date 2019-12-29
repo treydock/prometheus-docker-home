@@ -36,3 +36,31 @@ groups:
     annotations:
       title: Low free space on {{ $labels.instance }}
       description: On {{ $labels.instance }} device {{ $labels.device }} mounted on {{ $labels.mountpoint }} has low free space of {{ $value }}GB
+- name: tcp
+  rules:
+  - alert: TCP port is down
+    expr: probe_success{job="tcp-probe"} != 1
+    for: 5m
+    labels:
+      severity: warning
+    annotations:
+      title: TCP port is down at {{ $labels.instance }}
+      description: The TCP port {{ $labels.instance }} is down
+- name: http
+  rules:
+  - alert: HTTP site is down
+    expr: probe_success{job="http-probe"} != 1
+    for: 5m
+    labels:
+      severity: warning
+    annotations:
+      title: Site {{ $labels.instance }} is down
+      description: The HTTP site {{ $labels.instance }} is down
+  - alert: SSLCertExpiringSoon
+    expr: probe_ssl_cert_expiry_days < 14
+    for: 10m
+    labels:
+      severity: warning
+    annotations:
+      title: Site {{ $labels.instance }} certificate expiring soon
+      description: The HTTP site {{ $labels.instance }} certificate expires in {{ $value }} days

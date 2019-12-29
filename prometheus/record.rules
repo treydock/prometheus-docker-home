@@ -5,3 +5,7 @@ groups:
       expr: node_filesystem_free_bytes{device != "tmpfs"} / node_filesystem_size_bytes{device != "tmpfs"} * 100
     - record: node_filesystem_free_gb
       expr: node_filesystem_free_bytes{device != "tmpfs"} / 1024 / 1024 / 1024
+  - name: http
+    rules:
+    - record: probe_ssl_cert_expiry_days
+      expr: (probe_ssl_earliest_cert_expiry{job="http-probe"} - time()) / 86400
