@@ -12,12 +12,12 @@ groups:
       description: "{{ $labels.instance }} of job {{ $labels.job }} has been down for more than 2 minutes."
   - alert: high_load
     expr: node_load1 > 2
-    for: 2m
+    for: 5m
     labels:
       severity: warning
     annotations:
       summary: "Instance {{ $labels.instance }} under high load"
-      description: "{{ $labels.instance }} of job {{ $labels.job }} is under high load."
+      description: "{{ $labels.instance }} of job {{ $labels.job }} is under high load of {{ $value }}"
 - name: fs
   rules:
   - alert: Low free space (percent)
