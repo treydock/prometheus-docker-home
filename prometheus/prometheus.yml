@@ -37,6 +37,8 @@ scrape_configs:
       - targets: ['192.168.68.127:9100']
     relabel_configs:
       - source_labels: [__address__]
+        regex: '([^:]+):.*'
+        replacement: '$1'
         target_label: host
   - job_name: 'process-exporter'
     scrape_interval: 15s
