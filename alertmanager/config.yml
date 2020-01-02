@@ -5,12 +5,15 @@ global:
 
 route:
   receiver: email
+#  repeat_interval: 1m
+#  group_interval: 1m
 
 receivers:
   - name: email
     email_configs:
       - to: pi@localhost
         send_resolved: true
+        html: '{{ template "email.html" . }}'
 inhibit_rules:
   - target_match:
       alertname: http_down
@@ -22,3 +25,5 @@ inhibit_rules:
     source_match:
       alertname: http_down
     equal: ['instance']
+templates:
+  - '/etc/alertmanager/templates/email.tmpl'

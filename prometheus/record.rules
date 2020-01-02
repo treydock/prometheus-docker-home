@@ -1,4 +1,8 @@
 groups:
+  - name: node
+    rules:
+    - record: node_memory_available_percent
+      expr: node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes * 100
   - name: fs
     rules:
     - record: node_filesystem_free_percent
