@@ -3,7 +3,7 @@ groups:
   rules:
   # Alert for any instance that is unreachable for >2 minutes.
   - alert: node_down
-    expr: up == 0
+    expr: up{job="node-exporter"} == 0
     for: 2m
     labels:
       severity: page
