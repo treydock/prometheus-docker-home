@@ -5,6 +5,8 @@ global:
 
 route:
   receiver: email
+  routes:
+    - receiver: cmd-responder
 #  repeat_interval: 1m
 #  group_interval: 1m
 
@@ -14,6 +16,11 @@ receivers:
       - to: pi@localhost
         send_resolved: true
         html: '{{ template "email.html" . }}'
+  - name: cmd-responder
+    webhook_configs:
+      - send_resolved: false
+        url: http://192.168.68.127:10000/alerts
+
 inhibit_rules:
   - target_match:
       alertname: http_down
