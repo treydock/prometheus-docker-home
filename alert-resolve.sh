@@ -1,13 +1,13 @@
 #!/bin/bash
 
-name=test
+name=9814
 url='http://localhost:9093/api/v1/alerts'
 
 echo "firing up alert $name" 
 
-# change url o
+echo "sending resolve"
 curl -XPOST $url -d "[{ 
-	\"status\": \"firing\",
+	\"status\": \"resolved\",
 	\"labels\": {
 		\"alertname\": \"$name\",
 		\"service\": \"my-service\",
@@ -21,4 +21,3 @@ curl -XPOST $url -d "[{
 }]"
 
 echo ""
-
